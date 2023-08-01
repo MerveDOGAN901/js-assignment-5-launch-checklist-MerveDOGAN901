@@ -1,16 +1,131 @@
 // Write your JavaScript code here!
+window.addEventListener("load", function(){
 
-window.addEventListener("load", function() {
+    let URL="https://handlers.education.launchcode.org/static/planets.json";
+    fetch(URL).then(function(response){
+       response.json().then(function(json){
+          const missionTarget=document.getElementById("missionTarget");
+    
+          //missionTarget.addEventListener("load",function(){
+             missionTarget.innerHTML=`
+             
+             <h2>Mission Destination</h2>
+             <ol>
+                <li>Name: ${json[4].name}</li>
+                <li>Diameter: ${json[4].diameter}</li>
+                <li>Star: ${json[4].star}</li>
+                <li>Distance from Earth: ${json[4].distance}</li>
+                <li>Number of Moons: ${json[4].moons}</li>
+             </ol>
+             <img src="${json[4].image}"></img>
+             
+             `;
+             
+          //});
+ 
+       });
+    });
+ 
+ 
+ 
+    let form= document.getElementById("launchForm");
+    form.addEventListener("submit",function(event){
+       let pilotName= document.querySelector("input[name=pilotName]");
+       let copilotName=document.querySelector("input[name=copilotName]");
+       let fuelLevel=document.querySelector("input[name=fuelLevel]");
+       let cargoMass=document.querySelector("input[name=cargoMass]");
+ 
+       if (pilotName.value ==="" || copilotName.value==="" || fuelLevel.value==="" || cargoMass.value===""){
+          alert("All fields are required!");
+          event.preventDefault();
+       }else if (!isNaN(pilotName.value) || !isNaN(copilotName.value)|| isNaN(fuelLevel.value)|| isNaN(cargoMass.value)){
+          alert("Make sure to enter valid information for each field!");
+          event.preventDefault();
+       }else {
+ 
+          pilotStatus.innerHTML= `Pilot name: ${pilotName} `
+          copilotName.innerHTML = `Co-pilot: ${copilotName}`
+          fuelLevel.innerHTML=`Fuel level: ${fuelLevel}`
+          cargoMass.innerHTML=`Cargo Mass: ${cargoMass}`
+          let newFaultyItems=document.getElementById("faultyItems");
+          let newLaunchStatus=document.getElementById("launchStatus");
+          let newPilotStatus=document.getElementById("pilotStatus");
+          let newCopilotStatus=document.getElementById("copilotStatus");
+          let newFuelStatus=document.getElementById("fuelStatus");
+          let newCargoStatus=document.getElementById("cargoStatus");
+       
+          if(fuelLevel.value<10000){
+             newFaultyItems.style.visibility="visible";
+             newPilotStatus.innerHTML=`Pilot ${pilotName.value} is ready for launch`
+             newCopilotStatus.innerHTML=`Co-pilot ${copilotName.value} is ready for launch`
+             newFuelStatus.innerHTML="Fuel level is not enough fuel for the journey";
+             newLaunchStatus.innerHTML="Shuttle not ready for launch";
+             newLaunchStatus.style.color="red";
+             //event.preventDefault();
+          
+          
+          
+          
+          }else if(fuelLevel.value>=10000){
+             newFaultyItems.style.visibility="visible";
+             newPilotStatus.innerHTML=`Pilot ${pilotName.value} is ready for launch`
+             newCopilotStatus.innerHTML=`Co-pilot ${copilotName.value} is ready for launch`
+             newFuelStatus.innerHTML="Fuel level is  enough fuel for the journey";
+             newLaunchStatus.innerHTML="Shuttle ready for launch";
+             newLaunchStatus.style.color="green";
+             //event.preventDefault();
+       
+       
+          
+          
+          }
+          if(cargoMass.value>10000){
+             newFaultyItems.style.visibility="visible";
+             newPilotStatus.innerHTML=`Pilot ${pilotName.value} is ready for launch`
+             newCopilotStatus.innerHTML=`Co-pilot ${copilotName.value} is ready foor launch`
+             newCargoStatus.innerHTML="Cargo mass is too much mass for the shuttle to take of";
+             newLaunchStatus.innerHTML="Shuttle Not Ready for Launch";
+             newLaunchStatus.style.color="red";
+             //event.preventDefault();
+       
+       
+          }else if(cargoMass.value<=10000){
+             newFaultyItems.style.visibility="visible";
+             newPilotStatus.innerHTML=`Pilot ${pilotName.value} is ready for launch`
+             newCopilotStatus.innerHTML=`Co-pilot ${copilotName.value} is ready foor launch`
+             newCargoStatus.innerHTML="Cargo mass is low enough for the shuttle to take of";
+             newLaunchStatus.innerHTML="Shuttle Not Ready for Launch";
+             newLaunchStatus.style.color="red";
+             //event.preventDefault();
+       
+       
+          
+          }
+          if (fuelLevel.value > 10000 && cargoMass.value < 10000){
+             newFaultyItems.style.visibility="visible";
+             newPilotStatus.innerHTML=`Pilot ${pilotName.value} is ready for launch`
+             newCopilotStatus.innerHTML=`Co-pilot ${copilotName.value} is ready for launch`
+             newLaunchStatus.innerHTML="Shuttle is Ready for Launch";
+             newLaunchStatus.style.color=rgb(65, 159, 106);
+             //event.preventDefault();
+          }else{
+             newFaultyItems.style.visibility="visible";
+             newPilotStatus.innerHTML=`Pilot ${pilotName.value} is ready for launch`
+             newCopilotStatus.innerHTML=`Co-pilot ${copilotName.value} is ready for launch`
+             newLaunchStatus.innerHTML="Shuttle is Not for Launch";
+             newLaunchStatus.style.color=rgb(199, 37, 78);
+             //event.preventDefault();
+       
+          };
+      
+       };
+ 
+ 
+      
+ 
+       event.preventDefault();
+ 
+    });
+ 
+ });
 
-   let listedPlanets;
-   // Set listedPlanetsResponse equal to the value returned by calling myFetch()
-   let listedPlanetsResponse;
-   listedPlanetsResponse.then(function (result) {
-       listedPlanets = result;
-       console.log(listedPlanets);
-   }).then(function () {
-       console.log(listedPlanets);
-       // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
-   })
-   
-});
