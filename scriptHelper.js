@@ -1,3 +1,10 @@
+require ('isomorphic-fetch');
+function pickPlanet(planets) {
+    const randomIndex = Math.floor(Math.random() * planets.length);
+    return planets[randomIndex];
+}
+
+// Simulated function to update destination information
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
     const missionTarget = document.getElementById("missionTarget");
     missionTarget.innerHTML = `
@@ -13,6 +20,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     `;
 }
 
+// Function to validate input
 function validateInput(testInput) {
     if (testInput === "") {
         return "Empty";
@@ -33,10 +41,6 @@ async function myFetch() {
     return planetsReturned;
 }
 
-function pickPlanet(planets) {
-    const randomIndex = Math.floor(Math.random() * planets.length);
-    return planets[randomIndex];
-}
 
 module.exports.addDestinationInfo = addDestinationInfo;
 module.exports.validateInput = validateInput;
